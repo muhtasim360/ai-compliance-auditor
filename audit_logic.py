@@ -1,10 +1,11 @@
 import os
+import streamlit as st
 from google import genai
 from google.genai import types
 
 def analyze_password(password, policy):
-
-client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
+api_key = st.secrets.get("GEMINI_API_KEY") or os.getenv("GEMINI_API_KEY")
+client = genai.Client(api_key=api_key)
 
 system_prompt = """
     You are an expert Cyber Risk Auditor. Evaluate the provided password
