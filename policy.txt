@@ -1,0 +1,26 @@
+VIRGINIA-NEW YORK CONSULTING SERVICE (VANYCS) ACCESS CONTROL POLICY (v3.2)
+EFFECTIVE DATE: 2026-01-01
+
+1. PURPOSE
+This policy establishes the minimum requirements for the creation and management of passwords to protect VNYCS’s information assets and client data across our regional offices.
+
+2. PASSWORD REQUIREMENTS
+- Length: All user passwords must be a minimum of 14 characters.
+- Character Composition: Must include characters from at least three of the following four categories: uppercase, lowercase, numbers, and special characters.
+- Prohibited Content:
+    - Passwords must not contain the user's username or full name.
+    - Passwords must not contain corporate-specific terms such as "VNYCS", "Virginia", "NewYork", or "Consulting2026".
+    - Passwords must not contain sequential strings (e.g., "123456", "abcdef", "qwerty").
+    - Passwords must not be a common word found in a standard dictionary or a previously known compromised password.
+
+3. PASSWORD HISTORY & REUSE
+- Users shall not reuse any of their last 5 passwords.
+
+4. CONTEXTUAL EXCEPTIONS
+- Legacy Service Accounts: Accounts utilized by legacy automated systems that do not support complex characters may utilize a 24-character alphanumeric passphrase. These require documented manual sign-off by the Security Team and an annual access review.
+- Emergency Access: Temporary overrides for emergency administrative access must be documented in the incident log and expire automatically within 24 hours.
+
+5. AUDIT AND COMPLIANCE
+- Non-Compliance: The use of credentials identified in public breach databases is strictly prohibited.
+- Periodic Review: All accounts are subject to automated compliance auditing. Any account found in violation will be flagged for immediate password reset.
+- Policy Enforcement: This policy applies to all employees, contractors, and third-party partners accessing VNYCS systems.
