@@ -1,19 +1,40 @@
-# AI-Powered Password Compliance Auditor (VANYCS Simulation)
+# VANYCS Compliance Auditor
 
 ## Executive Summary
-This project automates the auditing of password policies against unstructured corporate documents. It bridges the gap between static policy and dynamic risk assessment using a hybrid Python/Gemini API architecture, designed to simulate compliance workflows for the fictional **Virginia-New York Consulting Service (VANYCS)**.
+A dual-mode AI-powered compliance auditing tool built with Python and the
+Gemini API, simulating compliance workflows for the fictional Virginia-New
+York Consulting Service (VANYCS):
+
+1. **Password Policy Audit** — validates a password against a corporate
+   access control policy (length, character composition, prohibited
+   content, reuse rules).
+2. **AI Governance Audit** — evaluates a free-text description of an AI
+   system or use case against three major AI governance frameworks:
+   - **NIST AI Risk Management Framework** (Govern / Map / Measure / Manage)
+   - **EU AI Act** (risk-tier classification and applicable obligations)
+   - **ISO/IEC 42001** (AI management system alignment and gaps)
+
+Both modes return structured, explainable output rather than a pass/fail
+black box — every result includes a rationale and remediation guidance,
+which mirrors how compliance findings are documented in practice.
 
 ## Architectural Highlights
-* **Modular Design:** The project separates business logic (`tracker.py`) from infrastructure/AI logic (`audit_logic.py`), ensuring scalability and ease of maintenance.
-* **Cost-Optimized Latency:** Utilizes local Python logic for baseline character checks to minimize unnecessary API calls, reserving the Gemini API for complex semantic analysis.
-* **Auditability & Explainability:** The system generates structured JSON audit logs, ensuring every compliance decision includes a remediation rationale for the end-user—a critical requirement for enterprise audit trails.
+- **Modular design**: business logic (`dashboard.py`) is separated from
+  AI/infrastructure logic (`audit_logic.py`, `ai_governance_logic.py`),
+  keeping the system easy to extend with additional audit types.
+- **Cost-optimized**: the password mode uses local Python-side context
+  (the policy file) and reserves the Gemini API for the semantic
+  judgment calls that actually require it.
+- **Auditability & explainability**: both modes generate structured JSON
+  output with remediation rationale, reflecting enterprise audit trail
+  requirements.
 
 ## Key Risk Mitigation
-* **Secret Management:** Sensitive credentials are managed via environment variables (`.env`) and explicitly excluded from version control.
-* **Resilience:** Built with structured system prompts to minimize model manipulation and potential prompt injection.
+- **Secret management**: credentials are read from environment variables /
+  Streamlit secrets and excluded from version control.
+- **Prompt resilience**: structured system prompts constrain model output
+  to a fixed JSON schema to reduce manipulation risk.
 
 ## Usage
 1. Clone the repository.
 2. Install dependencies:
-   ```bash
-   pip install google-genai python-dotenv
