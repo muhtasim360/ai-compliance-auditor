@@ -24,6 +24,16 @@ if mode == "Password Policy Audit":
     st.subheader("Password Policy Audit")
     st.write("Enter a password below to audit it against the VANYCS access control policy.")
 
+    with st.expander("View policy requirements"):
+        st.markdown(
+            """
+            - **Minimum length:** 14 characters
+            - **Character composition:** must include at least 3 of the following 4 categories — uppercase, lowercase, numbers, special characters
+            - **Prohibited content:** cannot contain your username/name, corporate terms (e.g. "VNYCS"), sequential strings (e.g. "123456", "abcdef"), or common dictionary/breached passwords
+            - **No reuse** of the last 5 passwords
+            """
+        )
+
     password = st.text_input("Enter password", type="password")
     if st.button("Run Audit", key="password_audit"):
         if password:
@@ -51,6 +61,17 @@ else:
         "NIST AI Risk Management Framework, EU AI Act risk tiers, and "
         "ISO/IEC 42001 AI management system controls."
     )
+
+    with st.expander("What makes a good description"):
+        st.markdown(
+            """
+            For the most accurate audit, include:
+            - **What the system does** (e.g. answers billing questions, screens resumes)
+            - **What data it accesses** (e.g. account balances, PII, health records)
+            - **Who reviews its outputs** before they reach a person or decision (if anyone)
+            - **How broadly it's deployed** (e.g. internal pilot, company-wide, customer-facing)
+            """
+        )
 
     example = (
         "A customer service chatbot that uses an LLM to answer billing "
