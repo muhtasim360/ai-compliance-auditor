@@ -29,7 +29,7 @@ if mode == "Password Policy Audit":
             """
             - **Minimum length:** 14 characters
             - **Character composition:** must include at least 3 of the following 4 categories — uppercase, lowercase, numbers, special characters
-            - **Prohibited content:** cannot contain your username/name, corporate terms (e.g. "VNYCS"), sequential strings (e.g. "123456", "abcdef"), or common dictionary/breached passwords
+            - **Prohibited content:** cannot contain your username/name, corporate terms (e.g. "VANYCS"), sequential strings (e.g. "123456", "abcdef"), or common dictionary/breached passwords
             - **No reuse** of the last 5 passwords
             """
         )
