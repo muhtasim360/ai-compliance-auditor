@@ -1,7 +1,6 @@
 import os
 import streamlit as st
-from google import genai
-from google.genai import types
+from groq import Groq
 
 
 GOVERNANCE_SYSTEM_PROMPT = """
@@ -10,15 +9,16 @@ You are an expert AI Governance and Regulatory Compliance Auditor.
 You will be given a description of an AI system or AI use case. Evaluate it
 against three frameworks:
 
-1. NIST AI Risk Management Framework (AI RMF) — assess across the four core
+1. NIST AI Risk Management Framework (AI RMF) - assess across the four core
    functions: Govern, Map, Measure, Manage.
-2. EU AI Act — classify the system's likely risk tier (Unacceptable, High,
+2. EU AI Act - classify the system's likely risk tier (Unacceptable, High,
    Limited, Minimal) and note which obligations would apply at that tier.
-3. ISO/IEC 42001 — assess against AI management system expectations
+3. ISO/IEC 42001 - assess against AI management system expectations
    (policy, roles/accountability, risk assessment, monitoring, continual
    improvement).
 
-Respond ONLY in valid JSON using this exact structure:
+Respond ONLY in valid JSON, with no markdown formatting or code fences,
+using this exact structure:
 {
   "system_summary": str,
   "nist_ai_rmf": {
@@ -41,7 +41,7 @@ Respond ONLY in valid JSON using this exact structure:
 }
 
 overall_risk_score is an integer from 1 (low risk) to 10 (high risk).
-Be specific and reference the actual content of the system description —
+Be specific and reference the actual content of the system description -
 do not give generic boilerplate answers.
 """
 
@@ -52,18 +52,18 @@ def analyze_ai_system(system_description: str) -> str:
     NIST AI RMF, EU AI Act risk tiers, and ISO/IEC 42001 AI management
     system controls. Returns a structured JSON string.
     """
-    api_key = st.secrets.get("GEMINI_API_KEY") or os.getenv("GEMINI_API_KEY")
-    client = genai.Client(api_key=api_key)
+    api_key = st.secrets.get("GROQ_API_KEY") or os.getenv("GROQ_API_KEY")
+    client = Groq(api_key=api_key)
 
     prompt = f"AI system / use case description:\n{system_description}"
 
-    response = client.models.generate_content(
-        model="gemini-2.0-flash",
-        contents=prompt,
-        config=types.GenerateContentConfig(
-            system_instruction=GOVERNANCE_SYSTEM_PROMPT,
-            response_mime_type="application/json",
-            temperature=0.1,
-        ),
+    response = client.chat.completions.create(
+        model="llama-3.1-8b-instant",
+        messages=[
+            {"role": "system", "content": GOVERNANCE_SYSTEM_PROMPT},
+            {"role": "user", "content": prompt},
+        ],
+        temperature=0.1,
+        response_format={"type": "json_object"},
     )
-    return response.text
+    return response.choices[0].message.content
